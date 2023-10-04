@@ -1,5 +1,7 @@
+<style>
+@import url('/global.css');
+</style>
+
 <template>
-  <div>
-    <NuxtWelcome />
-  </div>
+  <NuxtPage />
 </template>
