@@ -4,9 +4,9 @@ import Board from '~/components/board.vue'
 
 <template>
   <h1 class="title">Connect Four</h1>
-  <article class="game">
+  <main class="game">
     <Board />
-  </article>
+  </main>
 </template>
 
 <style>

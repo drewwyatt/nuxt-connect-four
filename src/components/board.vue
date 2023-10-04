@@ -1,15 +1,12 @@
 <script setup lang="ts">
-import { A } from '@mobily/ts-belt'
 import { BOARD_HEIGHT, BOARD_WIDTH } from '~/constants'
 import Space from '~/components/space.vue'
-
-const spaces = ref(A.range(0, BOARD_HEIGHT * BOARD_WIDTH - 1))
 </script>
 
 <template>
   <article class="board">
     <fieldset class="spaces">
-      <Space v-for="index in spaces" :index="index" :key="index" />
+      <Space v-for="index in BOARD_HEIGHT * BOARD_WIDTH" :index="index" :key="index" />
     </fieldset>
   </article>
 </template>
