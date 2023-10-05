@@ -1,12 +1,15 @@
 <script setup lang="ts">
+import range from 'lodash/range'
 import { BOARD_HEIGHT, BOARD_WIDTH } from '~/constants'
 import Space from '~/components/space.vue'
+
+const spaces = ref(range(BOARD_HEIGHT * BOARD_WIDTH))
 </script>
 
 <template>
   <article class="board">
     <fieldset class="spaces">
-      <Space v-for="index in BOARD_HEIGHT * BOARD_WIDTH" :index="index" :key="index" />
+      <Space v-for="index in spaces" :index="index" :key="index" />
     </fieldset>
   </article>
 </template>

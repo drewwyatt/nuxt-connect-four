@@ -1,17 +1,36 @@
 <script setup lang="ts">
+import { Space } from '~/models'
+import { useGameStore } from '~/store'
+
 const { index } = defineProps<{
   index: number
 }>()
 
-const checked = ref(index % 2 === 0)
+const store = useGameStore()
+const token = computed(() => store.getTokenForSpace(index))
+const checked = computed(() => store.spaces[index] !== Space.empty)
+const colIsFull = computed(() => store.getIsColumnFull(index))
 
-function drop() {
-  console.log(`You clicked index: ${index}`)
+function onChange(event: Event) {
+  // Reset the clicked element to what its final checkstate will be this turn
+  const target = event.target as HTMLInputElement
+  target.checked =
+    store.nextEmptySpaces.includes(index) || store.spaces[index] !== Space.empty
+
+  store.drop(index)
 }
 </script>
 
 <template>
-  <input class="space" type="checkbox" :checked="checked" @change="drop" />
+  <input
+    type="checkbox"
+    @change="onChange"
+    :data-index="index"
+    :data-checked="checked"
+    :class="['space', token]"
+    :checked="checked"
+    :disabled="colIsFull"
+  />
 </template>
 
 <style>
@@ -35,11 +54,11 @@ function drop() {
   background-color: var(--color);
 }
 
-.space:checked.playerOne {
+.space:checked.player-one {
   --color: var(--lime);
 }
 
-.space:checked.playerTwo {
+.space:checked.player-two {
   --color: var(--purple);
 }
 </style>
